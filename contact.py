@@ -9,8 +9,7 @@ class Contact:
     job_title = ""
     email = []
     phone = []
-    home_address = []
-    work_address = []
+    addresses = []
     birthday = ""
     gender = ""
     website = ""
@@ -19,6 +18,7 @@ class Contact:
     linkedin = ""
     facebook = ""
     instagram = ""
+    notes = ""
 
     def init_from_icloud_csv_row(self, row):
         self.prefix = row.get('Name Prefix', '')
@@ -51,6 +51,17 @@ class Contact:
             self.phone.append(row['Phone 3 - Value'])
 
         if row.get('Address 1 - Value', ''):
-            self.home_address.append(row['Phone 3 - Value'])
+            self.addresses.append(row['Phone 3 - Value'])
+
+        return self
+
+    def init_from_apple_vcard(self, vcard):
+        self.name = vcard.get('fn', '')
+        self.phone = vcard.get('tel', '')
+        self.notes = vcard.get('note', '')
+        self.email = vcard.get('email', '')
+        self.birthday = vcard.get('bday', '')
+        self.website = vcard.get('url', '')
+        self.job_title = vcard.get('title', '')
 
         return self

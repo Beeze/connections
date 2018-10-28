@@ -3,7 +3,7 @@ from contact import Contact
 # https://docs.google.com/spreadsheets/d/1Vb5xJNHkj3Dqx6gvFdmpgpve9rHfdrIq0VW5iS4IjME/edit#gid=824790542
 
 
-class ICloudCSVImporter:
+class GoogleCSVImporter:
 
     filename = "csv.csv"
     desired_headers = {
@@ -36,14 +36,15 @@ class ICloudCSVImporter:
         'Notes': True,
     }
     header_key_map = {}
+    contacts = []
 
-    def parse_csv(self):
+    def get_contacts_from_google_csv_file(self):
         with open(self.filename, 'rt', encoding='utf-8') as csv_file:
             has_header = csv.Sniffer().has_header(csv_file.readline())
 
             if not has_header:
                 # we can't use this file
-                print("csv file must have a header.")
+                print("csv file must have a header. exiting.")
                 exit()
 
             csv_file.seek(0)
@@ -62,29 +63,14 @@ class ICloudCSVImporter:
 
             for row in contact_reader:
                 contact = self.convert_row_into_contact_domain_object(row)
+                self.contacts.append(contact)
 
-                # Check if name already exists in database.
-                # if name exists, ask if can merge.
-                should_merge = self.check_for_merge(contact)
-                # if can merge, merge.
-                if should_merge:
-                    pass
-                # Check if we should save this contact
-                # if no, continue
-                # if yes:
-                # convert row into contact domain object.
-                # save contact in our db, and update our local cache (saved_contacts lists [name, number, etc.])
-                # with new value.
+        return self.contacts
 
     def convert_row_into_contact_domain_object(self, row):
         raw_row_object = {}
-
-        print(len(row))
         # Create an object using header fields as keys.
         for key, index in self.header_key_map.items():
             raw_row_object[key] = row[index]
         # Now that row is an object, we'll init a Contact domain object.
         return Contact().init_from_icloud_csv_row(raw_row_object)
-
-    def check_for_merge(self, contact):
-        return False
