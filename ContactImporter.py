@@ -10,6 +10,7 @@ def perform_contact_import():
 
     print(merge_contacts(contacts))
 
+
 def merge_contacts(contacts):
     # create n <Attribute, Contact> attribute_dictionaries, where 'n' is the number of Contact attributes
     contact_class_attributes = class_utils.get_class_attributes(Contact())
@@ -33,11 +34,17 @@ def merge_contacts(contacts):
                 stored_contact = attribute_dicts[attribute]
                 merged_contact = merge_two_contacts(stored_contact, contact)
                 # also, propogate new_c to all other matching attribute dicts.
+                continue
                 pass
+
+            else:
+                attribute_dicts[attribute] = contact
 
 
 def merge_two_contacts(c1, c2):
+
     return Contact()
+
 
 if __name__ == '__main__':
     perform_contact_import()
