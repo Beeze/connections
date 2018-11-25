@@ -1,10 +1,17 @@
 import class_utils
 
-class Contact:
+
+class ContactUtils:
     # EXCLUDED_MERGE_ATTRIBUTES: All Contact attribute we don't want to use when merging two or more Contact objects.
-    EXCLUDED_MERGE_ATTRIBUTES = ['prefix', 'first_name', 'last_name', 'suffix', 'nickname', 'company', 'job_title',
+    EXCLUDED_MERGE_ATTRIBUTES = ['prefix', 'name', 'first_name', 'last_name', 'suffix', 'nickname', 'company', 'job_title',
                                  'birthday', 'gender', 'relationship', 'notes']
     LIST_ATTRIBUTES = ['company', 'job_title']
+
+    def __init__(self):
+        pass
+
+
+class Contact:
 
     def __init(self):
         self.prefix = ""
@@ -129,6 +136,7 @@ class Contact:
             # multiple strings.
             # TODO: give each attribute it's own validator/selector method
             if class_utils.both_classes_have_none_null_attributes(c1, c2, attribute):
+                # TODO: figure out how to handle this case
                 # String vs List
                 continue
                 pass

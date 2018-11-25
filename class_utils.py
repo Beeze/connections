@@ -2,9 +2,7 @@ import inspect
 
 
 def get_class_attributes(class_obj):
-    attributes = inspect.getmembers(class_obj, lambda a: not(inspect.isroutine(a)))
-    return [a for a in attributes if not(a[0].startswith('__') and a[0].endswith('__'))]
-
+    return [attribute for attribute in dir(class_obj) if not attribute.startswith('_') and not attribute.endswith('_') and not attribute.startswith('init')]
 
 def both_classes_have_none_null_attributes(c1, c2, attribute):
     return (hasattr(c1, attribute)
