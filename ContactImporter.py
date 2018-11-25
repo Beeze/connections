@@ -120,9 +120,9 @@ class ContactImporter:
         unique_contacts = {}
 
         for attribute_dict in attribute_dicts.items():
-            contact_ids = attribute_dict.keys()
+            for attribute, contact in attribute_dict.items():
+                contact_id = contact.contact_id
 
-            for contact_id in contact_ids:
                 # Only keep contacts who aren't already saved, blacklisted, or already cached
                 if self.contact_is_blacklisted(contact_id) or self.contact_is_saved(contact_id):
                     continue
@@ -131,7 +131,7 @@ class ContactImporter:
                     self.contacts_queued_to_update[contact_id] = attribute_dict[contact_id]
                     continue
 
-                unique_contacts[contact_id] = attribute_dict[contact_id]
+                unique_contacts[contact_id] = contact
 
         return unique_contacts
 

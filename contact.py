@@ -142,6 +142,7 @@ class Contact:
         if row.get('Address 1 - Value', ''):
             cls.addresses.append(row['Phone 3 - Value'])
 
+        cls.contact_id = hash(cls)
         return cls
 
     @classmethod
@@ -174,6 +175,8 @@ class Contact:
         if vcard.get('url'):
             cls.website.append(vcard.get('url'))
 
+        cls.contact_id = hash(cls)
+
         return cls
 
     @classmethod
@@ -203,4 +206,5 @@ class Contact:
             # Only one of Contact() objects have this attribute, so we'll figure out which one and use it's value.
             setattr(new_c, attribute, class_utils.get_attribute_from_class(c1, c2, attribute))
 
+        new_c.contact_id = hash(new_c)
         return new_c
