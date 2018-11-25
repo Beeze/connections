@@ -1,8 +1,8 @@
-import inspect
-
-
 def get_class_attributes(class_obj):
-    return [attribute for attribute in dir(class_obj) if not attribute.startswith('_') and not attribute.endswith('_') and not attribute.startswith('init')]
+    return ([attribute for attribute in dir(class_obj)
+             if not attribute.startswith('_')
+             and not attribute.endswith('_')
+             and not attribute.startswith('init')])
 
 def both_classes_have_none_null_attributes(c1, c2, attribute):
     return (hasattr(c1, attribute)

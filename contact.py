@@ -14,6 +14,7 @@ class ContactUtils:
 class Contact:
 
     def __init(self):
+        self.contact_id = -1
         self.prefix = ""
         self.name = ""
         self.first_name = ""
@@ -34,6 +35,64 @@ class Contact:
         self.linkedin = []
         self.facebook = []
         self.instagram = []
+
+    def __hash__(self):
+        hash_code = 0
+        if self.company and len(self.company) > 0:
+            for company in self.company:
+                hash_code += hash(company)
+
+        if self.job_title and len(self.job_title) > 0:
+            for job_title in self.job_title:
+                hash_code += hash(job_title)
+
+        if self.email and len(self.email) > 0:
+            for email in self.email:
+                hash_code += hash(email)
+
+        if self.phone and len(self.phone) > 0:
+            for phone in self.phone:
+                hash_code += hash(phone)
+
+        if self.addresses and len(self.addresses) > 0:
+            for address in self.addresses:
+                hash_code += hash(address)
+
+        if self.notes and len(self.notes) > 0:
+            for note in self.notes:
+                hash_code += hash(note)
+
+        if self.website and len(self.website) > 0:
+            for website in self.website:
+                hash_code += hash(website)
+
+        if self.twitter and len(self.twitter) > 0:
+            for twitter in self.twitter:
+                hash_code += hash(twitter)
+
+        if self.linkedin and len(self.linkedin) > 0:
+            for linkedin in self.linkedin:
+                hash_code += hash(linkedin)
+
+        if self.facebook and len(self.facebook) > 0:
+            for facebook in self.facebook:
+                hash_code += hash(facebook)
+
+        if self.instagram and len(self.instagram) > 0:
+            for instagram in self.instagram:
+                hash_code += hash(instagram)
+
+        hash_code += hash(self.contact_id)
+        hash_code += hash(self.prefix)
+        hash_code += hash(self.name)
+        hash_code += hash(self.first_name)
+        hash_code += hash(self.last_name)
+        hash_code += hash(self.suffix)
+        hash_code += hash(self.nickname)
+        hash_code += hash(self.birthday)
+        hash_code += hash(self.gender)
+
+        return hash_code
 
     @classmethod
     def init_from_icloud_csv_row(cls, row):
